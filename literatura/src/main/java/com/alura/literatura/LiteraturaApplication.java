@@ -30,7 +30,14 @@ public class LiteraturaApplication {
 		String json = consumoApi.ObtenerDatos(url);
 
 		var datos = conversor.obtenerDatos(json, Datos.class);
-		datos.listaLibros().forEach(libro -> System.out.println(libro.titulo()
-				+ " - " + libro.descargas() + " descargas"));
+
+		datos.listaLibros().forEach(libro -> {
+			System.out.println(libro.titulo() + " - " + libro.descargas() + " descargas");
+
+			libro.listaAutores().stream()
+					.map(autor -> "Autor: " + autor.nombreAutor() + "(" + autor.anoDesde() + "-" + autor.anoHasta() + ")")
+					.forEach(System.out::println);
+		});
+
 	}
 }
